@@ -25,21 +25,13 @@ import Register from "./component/auth/register";
 import Order from "./component/order/order";
 
 if (localStorage.jwtToken) {
-  // console.log(localStorage.jwtToken);
-  // Set auth token header auth
   const token = localStorage.jwtToken;
   setAuthToken(token);
-  // Decode token and get user info and exp
   const decoded = jwt_decode(token);
-  // Set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
-  // Check for expired token
-  const currentTime = Date.now() / 1000; // to get in milliseconds
+  const currentTime = Date.now() / 1000;
   if (decoded.exp < currentTime) {
-    // Logout user
     store.dispatch(logoutUser());
-    // Redirect to login
-    // window.location.href = "./login";
   }
 }
 
@@ -69,7 +61,6 @@ function App() {
           <Route path="/orders" element={[<Order />]} />
           <Route path="/login" element={[<Login />]} />
           <Route path="/register" element={[<Register />]} />
-          {/* <Link to={"/category/" + cat._id}>Visit Store</Link> */}
         </Routes>
 
         <Footer />
